@@ -32,6 +32,11 @@ class ReservationController extends Controller
                 'message' => 'Event not found',
             ], 400);
 
+        if ( time() > $event->end_date )
+            return response()->json([
+                'message' => 'Expired event',
+            ], 400);
+
         $reservation = Reservation::create([
             'status' => 'INVITED',
             'event_id' => $event->id,
@@ -137,6 +142,17 @@ class ReservationController extends Controller
                 'message' => 'invalid_token',
             ], 400);
         }
+
+        $event = Event::where('id', '=', $request->get('event_id'))->first();
+        if ($event == null)
+            return response()->json([
+                'message' => 'Event not found',
+            ], 400);
+
+        if ( time() > $event->end_date )
+            return response()->json([
+                'message' => 'Expired event',
+            ], 400);
 
         $reservation = Reservation::where('event_id', '=', $event_id)
                     ->where('attend_id', '=', $id)
