@@ -132,6 +132,15 @@ class ReservationController extends Controller
         }
     }
 
+    public function handleEvent(Request $request)
+    {
+        if ($request->input('type') == 'public')
+            return $this->reservePublicEvent($request);
+        elseif ($request->input('type') == 'private')
+            return $this->reservePrivateEvent($request);
+
+    }
+
     public function confirmEvent(Request $request, $event_id)
     {
         $token = JWTAuth::parseToken();
@@ -144,7 +153,7 @@ class ReservationController extends Controller
             ], 400);
         }
 
-        $event = Event::where('id', '=', $request->get('event_id'))->first();
+        $event = Event::where('id', '=', $event_id)->first();
         if ($event == null)
             return response()->json([
                 'message' => 'Event not found',

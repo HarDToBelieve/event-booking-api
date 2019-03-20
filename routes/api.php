@@ -14,56 +14,55 @@ use Illuminate\Http\Request;
 */
 Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
     function () {
-        Route::group(['prefix' => 'attendee'], function () {
+        Route::group(['prefix' => 'attendees'], function () {
             Route::post('register', 'AttendeeController@register');
             Route::post('login', 'AttendeeController@login');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class,],
                 function () {
-                    Route::get('info', 'AttendeeController@getCurrentInfo');
-                    Route::put('info/update', 'AttendeeController@updateInfo');
+                    Route::get('profile', 'AttendeeController@getCurrentInfo');
+                    Route::put('profile/update', 'AttendeeController@updateInfo');
+                    Route::get('{id}/events', 'AttendeeController@getEventsByAttendee');
                 });
         });
 
-        Route::group(['prefix' => 'organizer'], function () {
+        Route::group(['prefix' => 'organizers'], function () {
             Route::post('register', 'OrganizerController@register');
             Route::post('login', 'OrganizerController@login');
-            Route::get('list', 'OrganizerController@listAll');
-            Route::get('info/{id}', 'OrganizerController@getSpecificInfo');
+            Route::get('', 'OrganizerController@listAll');
+            Route::get('{id}', 'OrganizerController@getSpecificInfo');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
-                    Route::get('info', 'OrganizerController@getCurrentInfo');
-                    Route::put('info/update', 'OrganizerController@updateInfo');
+                    Route::get('profile', 'OrganizerController@getCurrentInfo');
+                    Route::put('profile/update', 'OrganizerController@updateInfo');
+                    Route::get('{id}/locations', 'LocationController@getLocationsByOwner');
+                    Route::get('{id}/events', 'EventController@getEventsByOwner');
                 });
         });
 
-        Route::group(['prefix' => 'location'], function () {
-            Route::get('list', 'LocationController@listAll');
-            Route::get('info/{id}', 'LocationController@getInfo');
-            Route::get('list/{id}', 'LocationController@getLocationsByOwner');
+        Route::group(['prefix' => 'locations'], function () {
+            Route::get('', 'LocationController@listAll');
+            Route::get('{id}', 'LocationController@getInfo');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
-                    Route::post('new', 'LocationController@createLocation');
+                    Route::post('create', 'LocationController@createLocation');
                     Route::put('update/{id}', 'LocationController@updateLocation');
                     Route::delete('delete/{id}', 'LocationController@deleteLocation');
                 });
         });
 
-        Route::group(['prefix' => 'event'], function () {
-            Route::get('list', 'EventController@listAll');
-            Route::get('info/{id}', 'EventController@getInfo');
-            Route::get('list/{id}', 'EventController@getEventsByOwner');
-            Route::get('search', 'EventController@searchEvent');
+        Route::group(['prefix' => 'events'], function () {
+            Route::get('', 'EventController@listAll');
+            Route::get('{id}', 'EventController@getInfo');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
-                    Route::post('new', 'EventController@createEvent');
+                    Route::post('create', 'EventController@createEvent');
                     Route::put('update/{id}', 'EventController@updateEvent');
                     Route::delete('delete/{id}', 'EventController@deleteEvent');
                     Route::post('upload/{id}', 'EventController@uploadImage');
-                    Route::get('attendee', 'AttendeeController@getPrivateEventsByAttendee');
                 });
         });
 
@@ -76,12 +75,11 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
         //        });
         //});
 
-        Route::group(['prefix' => 'reservation'], function () {
+        Route::group(['prefix' => 'reservations'], function () {
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
-                    Route::post('public', 'ReservationController@reservePublicEvent');
-                    Route::post('private', 'ReservationController@reservePrivateEvent');
-                    Route::post('confirm', 'ReservationController@confirmEvent');
+                    Route::post('', 'ReservationController@handleEvent');
+                    Route::post('confirm/{id}', 'ReservationController@confirmEvent');
                 });
         });
     });
