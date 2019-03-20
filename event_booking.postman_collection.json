@@ -22,7 +22,7 @@
 					"raw": "{\n\t\"firstname\" : \"Minh Tuan\",\n\t\"lastname\" : \"Do\",\n\t\"email\" : \"admin@123.com\",\n\t\"phone\" : \"1234\",\n\t\"password\" : 1\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/attendee/register?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/attendees/register?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -34,7 +34,7 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"attendee",
+						"attendees",
 						"register"
 					],
 					"query": [
@@ -64,7 +64,7 @@
 					"raw": "{\n\t\"email\" : \"admin@123.com\",\n\t\"password\" : \"1\"\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/attendee/login?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/attendees/login?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -76,7 +76,7 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"attendee",
+						"attendees",
 						"login"
 					],
 					"query": [
@@ -153,7 +153,7 @@
 					"raw": "{\n\t\"firstname\" : \"Minh Anh\",\n\t\"lastname\" : \"Le\",\n\t\"email\" : \"haha@yopmail.com\",\n\t\"phone\" : \"1234\",\n\t\"password\" : 1\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/organizer/register?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/organizers/register?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -165,7 +165,7 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"organizer",
+						"organizers",
 						"register"
 					],
 					"query": [
@@ -195,7 +195,7 @@
 					"raw": "{\n\t\"email\" : \"haha@yopmail.com\",\n\t\"password\" : \"1\"\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/organizer/login?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/organizers/login?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -207,7 +207,7 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"organizer",
+						"organizers",
 						"login"
 					],
 					"query": [
@@ -358,7 +358,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplci9sb2dpbiIsImlhdCI6MTU1MjU3OTA1MiwiZXhwIjoxNTU2MTc5MDUyLCJuYmYiOjE1NTI1NzkwNTIsImp0aSI6IjVlSVhiZ2dndE5qN1BDQnUiLCJzdWIiOjEsInBydiI6IjVhNDAwNzc3MGQzNGQwNDVhZjU4NTlkMGRjOGViNDQwNGMzYjU5ODAiLCJ1c2VyX3R5cGUiOiJPcmdhbml6ZXIifQ.YWaSUztc1SHowJvgPMph8rcWxmVdgqSf6KBz1f0WTtA",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplcnMvbG9naW4iLCJpYXQiOjE1NTMwNzk2MTksImV4cCI6MTU1NjY3OTYxOSwibmJmIjoxNTUzMDc5NjE5LCJqdGkiOiJDNlVndkR0ZG4yaDhMa3k2Iiwic3ViIjoxLCJwcnYiOiI1YTQwMDc3NzBkMzRkMDQ1YWY1ODU5ZDBkYzhlYjQ0MDRjM2I1OTgwIiwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.ZdepAnZgvsUOHeP6HHj4ivn60nOKuETNR5wSjS1LBRw",
 						"type": "text"
 					},
 					{
@@ -373,7 +373,7 @@
 					"raw": "{\n\t\"name_location\" : \"Daewoo Hotel\",\n\t\"address\" : \"Kim Ma street\",\n\t\"capacity\" : 1000\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/location/new?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/locations/create?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -385,8 +385,8 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"location",
-						"new"
+						"locations",
+						"create"
 					],
 					"query": [
 						{
@@ -602,7 +602,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplci9sb2dpbiIsImlhdCI6MTU1MjU3OTA1MiwiZXhwIjoxNTU2MTc5MDUyLCJuYmYiOjE1NTI1NzkwNTIsImp0aSI6IjVlSVhiZ2dndE5qN1BDQnUiLCJzdWIiOjEsInBydiI6IjVhNDAwNzc3MGQzNGQwNDVhZjU4NTlkMGRjOGViNDQwNGMzYjU5ODAiLCJ1c2VyX3R5cGUiOiJPcmdhbml6ZXIifQ.YWaSUztc1SHowJvgPMph8rcWxmVdgqSf6KBz1f0WTtA",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplcnMvbG9naW4iLCJpYXQiOjE1NTMwNzk2MTksImV4cCI6MTU1NjY3OTYxOSwibmJmIjoxNTUzMDc5NjE5LCJqdGkiOiJDNlVndkR0ZG4yaDhMa3k2Iiwic3ViIjoxLCJwcnYiOiI1YTQwMDc3NzBkMzRkMDQ1YWY1ODU5ZDBkYzhlYjQ0MDRjM2I1OTgwIiwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.ZdepAnZgvsUOHeP6HHj4ivn60nOKuETNR5wSjS1LBRw",
 						"type": "text"
 					},
 					{
@@ -617,7 +617,7 @@
 					"raw": "{\n\t\"title\" : \"How life is going on?\",\n\t\"description\" : \"chatting about life\",\n\t\"category\" : \"meeting\",\n\t\"start_date\" : \"19-04-2019 19:00\",\n\t\"end_date\" : \"20-04-2019 19:00\",\n\t\"cost\" : 1928.0,\n\t\"location_id\" : 1,\n\t\"type\" : \"public\"\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/event/new?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/events/create?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -629,8 +629,8 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"event",
-						"new"
+						"events",
+						"create"
 					],
 					"query": [
 						{
@@ -955,7 +955,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/event/upload/1?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/events/upload/1?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -967,7 +967,7 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"event",
+						"events",
 						"upload",
 						"1"
 					],
@@ -1003,7 +1003,7 @@
 					"raw": "{\n\t\"event_id\" : 1\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/reservation/public?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/reservations?XDEBUG_SESSION_START=12827&type=private",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1015,13 +1015,16 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"reservation",
-						"public"
+						"reservations"
 					],
 					"query": [
 						{
 							"key": "XDEBUG_SESSION_START",
 							"value": "12827"
+						},
+						{
+							"key": "type",
+							"value": "private"
 						}
 					]
 				}
@@ -1055,7 +1058,7 @@
 					]
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/reservation/private?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/reservations?XDEBUG_SESSION_START=12827&type=private",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -1067,13 +1070,16 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"reservation",
-						"private"
+						"reservations"
 					],
 					"query": [
 						{
 							"key": "XDEBUG_SESSION_START",
 							"value": "12827"
+						},
+						{
+							"key": "type",
+							"value": "private"
 						}
 					]
 				}
