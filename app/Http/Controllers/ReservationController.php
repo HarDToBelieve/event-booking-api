@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attendee;
 use App\Event;
+use App\Location;
 use App\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -161,6 +162,16 @@ class ReservationController extends Controller
         if ($reservation == null)
             return response()->json([
                 'message' => 'Reservation not found',
+            ], 400);
+
+        $existing_slots = Reservation::where('event_id', '=', $event_id)
+                        ->where('status', '=', 'INVITED')
+                        ->get();
+        $location = Location::where('id', '=', $event->location_id)->first();
+
+        if (count($existing_slots) == $location->capacity)
+            return response()->json([
+                'message' => 'Full slot',
             ], 400);
 
         $reservation->update([

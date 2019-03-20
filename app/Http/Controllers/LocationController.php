@@ -115,9 +115,4 @@ class LocationController extends Controller
             'result' => $list_loc,
         ], 200);
     }
-
-    public function getAvailableLocation(Request $request)
-    {
-
-    }
 }
