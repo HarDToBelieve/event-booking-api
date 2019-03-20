@@ -109,7 +109,7 @@ class LocationController extends Controller
                 'message'=> 'Owner not found',
             ], 400);
 
-        $list_loc = Location::where('owner_id', '=', $owner_id)->get();
+        $list_loc = Location::where('owner_id', '=', $owner_id)->paginate();
         return response()->json([
             'owner_id' => $owner_id,
             'result' => $list_loc,
