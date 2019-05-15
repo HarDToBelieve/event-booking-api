@@ -42,9 +42,13 @@ class AttendeeController extends Controller
                 'signup_code' => ''
             ]);
 
+            $cred = $request->only('email', 'password');
+            $token = $this->getToken($cred);
+
             return response()->json([
                 'message' => 'Attendee created successfully',
                 'data' => $user,
+                'token' => $token,
             ], 200);
         }
         else {
@@ -71,9 +75,13 @@ class AttendeeController extends Controller
                 'signup_code' => ''
             ]);
 
+            $cred = $request->only('email', 'password');
+            $token = $this->getToken($cred);
+
             return response()->json([
                 'message' => 'Attendee created successfully',
                 'data' => $user,
+                'token' => $token,
             ], 200);
         }
     }
@@ -105,9 +113,8 @@ class AttendeeController extends Controller
         ], 200);
     }
 
-    public function login(Request $request)
+    private function getToken(Array $credentials)
     {
-        $credentials = $request->only('email', 'password');
         $token = null;
         try {
             if (!$token = JWTAuth::attempt($credentials)) {
@@ -121,6 +128,12 @@ class AttendeeController extends Controller
             ], 500);
         }
         $token = auth()->claims(['user_type' => 'Attendee',])->attempt($credentials);
+        return $token;
+    }
+
+    public function login(Request $request)
+    {
+        $token = $this->getToken($request->only('email', 'password'));
         return response()->json(compact('token'));
     }
 
