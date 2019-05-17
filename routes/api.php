@@ -30,7 +30,6 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::post('register', 'OrganizerController@register');
             Route::post('login', 'OrganizerController@login');
             Route::get('', 'OrganizerController@listAll');
-            Route::get('{id}', 'OrganizerController@getSpecificInfo');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
@@ -39,11 +38,12 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
                     Route::get('{id}/locations', 'LocationController@getLocationsByOwner');
                     Route::get('{id}/events', 'EventController@getEventsByOwner');
                 });
+
+            Route::get('{id}', 'OrganizerController@getSpecificInfo');
         });
 
         Route::group(['prefix' => 'locations'], function () {
             Route::get('', 'LocationController@listAll');
-            Route::get('{id}', 'LocationController@getInfo');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
@@ -51,11 +51,12 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
                     Route::put('update/{id}', 'LocationController@updateLocation');
                     Route::delete('delete/{id}', 'LocationController@deleteLocation');
                 });
+
+            Route::get('{id}', 'LocationController@getInfo');
         });
 
         Route::group(['prefix' => 'events'], function () {
             Route::get('', 'EventController@listAll');
-            Route::get('{id}', 'EventController@getInfo');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
@@ -64,6 +65,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
                     Route::delete('delete/{id}', 'EventController@deleteEvent');
                     Route::post('upload/{id}', 'EventController@uploadImage');
                 });
+            Route::get('{id}', 'EventController@getInfo');
         });
 
         //Route::group(['prefix' => 'voucher'], function () {

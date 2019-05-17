@@ -141,10 +141,10 @@ class EventController extends Controller
 
     public function listAll(Request $request)
     {
-        $list_evs = Event::where('1', '=', '1');
+        $list_evs = Event::paginate();
         if ($request->get('title'))
             $list_evs = $list_evs->where('type', '=', 'public');
-        return response()->json($list_evs->paginate(), 200);
+        return response()->json($list_evs, 200);
     }
 
     public function getPrivateEventsByAttendee(Request $request)
