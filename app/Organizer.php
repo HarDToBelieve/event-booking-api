@@ -17,7 +17,7 @@ class Organizer extends Model implements JWTSubject, AuthenticatableContract
 
     protected $fillable = ['firstname', 'lastname', 'email', 'phone', 'password'];
     protected $hidden = [
-        'password',
+        'password', 'owner'
     ];
 //    protected $guard = 'api_organizer';
     /**
@@ -40,5 +40,10 @@ class Organizer extends Model implements JWTSubject, AuthenticatableContract
     {
         // TODO: Implement getJWTCustomClaims() method.
         return [];
+    }
+
+    public function events()
+    {
+        return $this->hasMany('App\Event');
     }
 }

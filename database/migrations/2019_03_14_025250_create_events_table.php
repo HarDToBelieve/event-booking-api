@@ -25,6 +25,7 @@ class CreateEventsTable extends Migration
             $table->text('category');
             $table->text('img')->nullable();
             $table->text('type');
+            $table->unsignedInteger('capacity');
             $table->timestamps();
         });
 

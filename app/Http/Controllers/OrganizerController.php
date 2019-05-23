@@ -36,11 +36,33 @@ class OrganizerController extends Controller
             'password' => Hash::make($request->get('password'))
         ]);
 
+        $cred = $request->only('email', 'password');
+        $token = $this->getToken($cred);
+
         return response()->json([
             'status'=> 200,
             'message'=> 'Organizer created successfully',
             'data'=>$user,
+            'token'=> $token,
         ]);
+    }
+
+    private function getToken(Array $credentials)
+    {
+        $token = null;
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json([
+                    'message' => 'invalid_email_or_password',
+                ], 422);
+            }
+        } catch (JWTAuthException $e) {
+            return response()->json([
+                'message' => 'failed_to_create_token',
+            ], 500);
+        }
+        $token = auth()->claims(['user_type' => 'Organizer',])->attempt($credentials);
+        return $token;
     }
 
     public function updateInfo(Request $request)

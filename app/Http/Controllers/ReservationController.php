@@ -38,6 +38,13 @@ class ReservationController extends Controller
                 'message' => 'Expired event',
             ], 400);
 
+        $reservations = $event->attendees;
+        if ( sizeof($reservations) == $event->capacity ) {
+            return response()->json([
+                'message' => 'Out of slot',
+            ], 400);
+        }
+
         $reservation = Reservation::create([
             'status' => 'INVITED',
             'event_id' => $event->id,

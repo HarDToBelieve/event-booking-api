@@ -17,12 +17,12 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
         Route::group(['prefix' => 'attendees'], function () {
             Route::post('register', 'AttendeeController@register');
             Route::post('login', 'AttendeeController@login');
+            Route::get('{id}/events', 'EventController@getPublicEventsByAttendee');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class,],
                 function () {
                     Route::get('profile', 'AttendeeController@getCurrentInfo');
                     Route::put('profile/update', 'AttendeeController@updateInfo');
-                    Route::get('{id}/events', 'AttendeeController@getEventsByAttendee');
                 });
         });
 
@@ -30,13 +30,13 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::post('register', 'OrganizerController@register');
             Route::post('login', 'OrganizerController@login');
             Route::get('', 'OrganizerController@listAll');
+            Route::get('{id}/events', 'EventController@getEventsByOwner');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
                     Route::get('profile', 'OrganizerController@getCurrentInfo');
                     Route::put('profile/update', 'OrganizerController@updateInfo');
                     Route::get('{id}/locations', 'LocationController@getLocationsByOwner');
-                    Route::get('{id}/events', 'EventController@getEventsByOwner');
                 });
 
             Route::get('{id}', 'OrganizerController@getSpecificInfo');
@@ -44,6 +44,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
 
         Route::group(['prefix' => 'locations'], function () {
             Route::get('', 'LocationController@listAll');
+            Route::get('{id}', 'EventController@getEventsByLocation');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {

@@ -29,7 +29,6 @@ class LocationController extends Controller
         $location = Location::create([
             'name_location' => $request->get('name_location'),
             'address' => $request->get('address'),
-            'capacity' => $request->get('capacity'),
             'owner_id' => $id,
         ]);
         return response()->json(['result' => $location], 200);

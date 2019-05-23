@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Attendee;
 use App\Event;
 use App\Location;
 use App\Organizer;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use JWTAuth;
+use Nexmo\User\User;
 
 class EventController extends Controller
 {
@@ -33,13 +36,7 @@ class EventController extends Controller
                                 ->first();
         if ($location == null)
             return response()->json([
-                'message'=> 'Location not found',
-            ], 400);
-
-        $existing_event = Event::where('location_id', '=', $request->get('location_id'))->first();
-        if ($existing_event != null)
-            return response()->json([
-                'message'=> 'Location belongs to another event',
+                'message'=> 'Location not belongs to owner',
             ], 400);
 
         if ($request->get("type") != "public" && $request->get('type') != 'private' )
@@ -55,7 +52,8 @@ class EventController extends Controller
             'end_date' => strtotime($request->get('end_date')),
             'location_id' => $location->id,
             'owner_id' => $id,
-            'type' => $request->get('type')
+            'type' => $request->get('type'),
+            'capacity' => $request->get('capacity')
         ]);
         return response()->json(['result' => $event], 200);
     }
@@ -90,11 +88,11 @@ class EventController extends Controller
             }
         }
 
-        $existing_event = Event::where('location_id', '=', $request->get('location_id'));
-        if ($existing_event != null)
-            return response()->json([
-                'message'=> 'Location belongs to another event',
-            ], 400);
+//        $existing_event = Event::where('location_id', '=', $request->get('location_id'));
+//        if ($existing_event != null)
+//            return response()->json([
+//                'message'=> 'Location belongs to another event',
+//            ], 400);
 
         if ($user_id != $event->owner_id)
             return response()->json([
@@ -141,9 +139,27 @@ class EventController extends Controller
 
     public function listAll(Request $request)
     {
-        $list_evs = Event::paginate();
-        if ($request->get('title'))
-            $list_evs = $list_evs->where('type', '=', 'public');
+        $list_evs = Event::where('type', '=', 'public')
+            ->paginate();
+        return response()->json($list_evs, 200);
+    }
+
+    public function getPublicEventsByAttendee(Request $request, $id)
+    {
+        $user = Attendee::where('id', '=', $id)->first();
+        if ($user == null) {
+            return response()->json([
+                'message' => 'User not found',
+            ], 404);
+        }
+
+        $reserves = $user->events;
+        $list_evs = array();
+        foreach ($reserves as $re) {
+            if ($re->type == 'public')
+                array_push($list_evs, $re);
+        }
+
         return response()->json($list_evs, 200);
     }
 
@@ -160,19 +176,26 @@ class EventController extends Controller
         }
 
         $list_evs = Event::where('type', '=', 'private')
-            ->where('id', '=', $id)
+            ->where('attendee_id', '=', $id)
             ->paginate();
         return response()->json($list_evs, 200);
     }
 
     public function getInfo(Request $request, $id)
     {
-        $found = Event::where('id', '=', $id);
-        if ($found->first() == null)
+        $found = Event::where('id', '=', $id)->first();
+        if ($found == null)
             return response()->json([
                 'message'=> 'Event not found',
             ], 400);
-        return response()->json(['result' => $found->first()], 200);
+
+        $owner = $found->owner;
+        $attendees = $found->attendees;
+
+        $result = array('detail' => $found,
+                'contact' => $owner->email,
+                'nummber_of_attendees' => sizeof($attendees));
+        return response()->json(['result' => $result], 200);
     }
 
     public function getEventsByOwner(Request $request, $owner_id)
@@ -200,14 +223,12 @@ class EventController extends Controller
         return response()->json(['result' => $event], 200);
     }
 
-    public function getEventByLocation(Request $request, $id)
+    public function getEventsByLocation(Request $request, $id)
     {
-        $event = Event::where('location_id', '=', $id)->first();
-        if ($event == null)
-            return response()->json([
-                'message'=> 'Event not found',
-            ], 400);
-        return response()->json(['result' => $event], 200);
+        $events = Event::where('location_id', '=', $id)
+            ->where('type', '=', 'public')
+            ->paginate();
+        return response()->json(['result' => $events], 200);
     }
 
     public function getEventsStartBeforeDate(Request $request)

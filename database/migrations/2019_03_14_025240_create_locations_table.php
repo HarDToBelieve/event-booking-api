@@ -18,7 +18,6 @@ class CreateLocationsTable extends Migration
             $table->text('name_location');
 //            $table->text('address');
             $table->string('address', 100);
-            $table->integer('capacity');
             $table->unsignedInteger('owner_id');
             $table->timestamps();
         });
