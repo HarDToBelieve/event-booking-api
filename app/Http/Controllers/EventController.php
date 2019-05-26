@@ -163,21 +163,22 @@ class EventController extends Controller
         return response()->json($list_evs, 200);
     }
 
-    public function getPrivateEventsByAttendee(Request $request)
+    public function getPrivateEventsByAttendee(Request $request, $id)
     {
-        $token = JWTAuth::parseToken();
-        $id = $token->getPayload()->get('sub');
-        $user_type = $token->getPayload()->get('user_type');
-
-        if (!$id || $user_type != 'Attendee') {
+        $user = Attendee::where('id', '=', $id)->first();
+        if ($user == null) {
             return response()->json([
-                'message' => 'invalid_token',
-            ], 422);
+                'message' => 'User not found',
+            ], 404);
         }
 
-        $list_evs = Event::where('type', '=', 'private')
-            ->where('attendee_id', '=', $id)
-            ->paginate();
+        $reserves = $user->events;
+        $list_evs = array();
+        foreach ($reserves as $re) {
+            if ($re->type == 'private')
+                array_push($list_evs, $re);
+        }
+
         return response()->json($list_evs, 200);
     }
 

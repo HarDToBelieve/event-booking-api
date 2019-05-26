@@ -445,12 +445,12 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplci9sb2dpbiIsImlhdCI6MTU1MjU3MjM3NCwiZXhwIjoxNTU2MTcyMzc0LCJuYmYiOjE1NTI1NzIzNzQsImp0aSI6IkdyZjVPNDhtcGFCc0ZxM0QiLCJzdWIiOjMsInBydiI6IjVhNDAwNzc3MGQzNGQwNDVhZjU4NTlkMGRjOGViNDQwNGMzYjU5ODAiLCJ1c2VyX3R5cGUiOiJPcmdhbml6ZXIifQ._WEdSSq5D36x3xF-wICsTDPkpQJlnkz4BRyPNxHoBHc",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.vkYsqkNPiegn67FN6xOUqK42USNVdGDpBCx6peHeETs",
 						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/location/delete/1?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/locations/delete/1?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -462,7 +462,7 @@
 					"path": [
 						"event-booking-api",
 						"api",
-						"location",
+						"locations",
 						"delete",
 						"1"
 					],
@@ -583,7 +583,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplcnMvcmVnaXN0ZXIiLCJpYXQiOjE1NTg2MjY4MTIsImV4cCI6MTU2MjIyNjgxMiwibmJmIjoxNTU4NjI2ODEyLCJqdGkiOiJQcWlGVHVVaE5qZWR6YjUyIiwic3ViIjoxLCJwcnYiOiI1YTQwMDc3NzBkMzRkMDQ1YWY1ODU5ZDBkYzhlYjQ0MDRjM2I1OTgwIiwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.aSm8bbkCRjGFBvhddy8ME9zY-5Nnbgq7DrhEZj86Y_w",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.vkYsqkNPiegn67FN6xOUqK42USNVdGDpBCx6peHeETs",
 						"type": "text"
 					},
 					{
@@ -595,10 +595,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"title\" : \"How life is going on (part 3)?\",\n\t\"description\" : \"chatting about life\",\n\t\"category\" : \"meeting\",\n\t\"start_date\" : \"19-04-2020 19:00\",\n\t\"end_date\" : \"20-04-2020 19:00\",\n\t\"cost\" : 1928.0,\n\t\"location_id\" : 2,\n\t\"type\" : \"public\",\n\t\"capacity\" : 0\n}"
+					"raw": "{\n\t\"title\" : \"How life is going on (part 3)?\",\n\t\"description\" : \"chatting about life\",\n\t\"category\" : \"meeting\",\n\t\"start_date\" : \"19-04-2020 19:00\",\n\t\"end_date\" : \"20-04-2020 19:00\",\n\t\"location_id\" : 1,\n\t\"type\" : \"public\",\n\t\"capacity\" : 2\n}"
 				},
 				"url": {
-					"raw": "http://127.0.0.1:8888/event-booking-api/api/events/create?XDEBUG_SESSION_START=12827",
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/events/?XDEBUG_SESSION_START=12827",
 					"protocol": "http",
 					"host": [
 						"127",
@@ -611,7 +611,7 @@
 						"event-booking-api",
 						"api",
 						"events",
-						"create"
+						""
 					],
 					"query": [
 						{
@@ -855,7 +855,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL2F0dGVuZGVlcy9sb2dpbiIsImlhdCI6MTU1ODYyNjc5NSwiZXhwIjoxNTYyMjI2Nzk1LCJuYmYiOjE1NTg2MjY3OTUsImp0aSI6IldRbFBSUXZqZHlJQXFaa0EiLCJzdWIiOjEsInBydiI6IjNhMzhiMDE4MmNiOWQ4YmYyMDZhMTE0YmI5N2NiMmQ1ZjM5MDY1YjEiLCJ1c2VyX3R5cGUiOiJBdHRlbmRlZSJ9.yaXQ-2mfF14FGz7X2BQ31_R4CkvSeprtxg8vImzIo4A",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcl90eXBlIjoiQXR0ZW5kZWUifQ.fKL_DVhi02X4uRP43cdv53LmhfbVFbwSbIXNWtV96OY",
 						"type": "text"
 					},
 					{
@@ -867,7 +867,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"event_id\" : 3\n}"
+					"raw": "{\n\t\"event_id\" : 1\n}"
 				},
 				"url": {
 					"raw": "http://127.0.0.1:8888/event-booking-api/api/reservations?XDEBUG_SESSION_START=12827&type=public",
@@ -959,7 +959,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL2F0dGVuZGVlcy9sb2dpbiIsImlhdCI6MTU1ODYyNjc5NSwiZXhwIjoxNTYyMjI2Nzk1LCJuYmYiOjE1NTg2MjY3OTUsImp0aSI6IldRbFBSUXZqZHlJQXFaa0EiLCJzdWIiOjEsInBydiI6IjNhMzhiMDE4MmNiOWQ4YmYyMDZhMTE0YmI5N2NiMmQ1ZjM5MDY1YjEiLCJ1c2VyX3R5cGUiOiJBdHRlbmRlZSJ9.yaXQ-2mfF14FGz7X2BQ31_R4CkvSeprtxg8vImzIo4A",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcl90eXBlIjoiQXR0ZW5kZWUifQ.fKL_DVhi02X4uRP43cdv53LmhfbVFbwSbIXNWtV96OY",
 						"type": "text"
 					}
 				],
@@ -1028,7 +1028,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplcnMvbG9naW4iLCJpYXQiOjE1NTg2Mjg2ODIsImV4cCI6MTU2MjIyODY4MiwibmJmIjoxNTU4NjI4NjgyLCJqdGkiOiI5Mm1lTTJ5NFpvdTJvUHU0Iiwic3ViIjoxLCJwcnYiOiI1YTQwMDc3NzBkMzRkMDQ1YWY1ODU5ZDBkYzhlYjQ0MDRjM2I1OTgwIiwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.b5RiAW0OiFjbbJOKo1B90NInyTFEijKfJ9MIPGJ09IQ",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.vkYsqkNPiegn67FN6xOUqK42USNVdGDpBCx6peHeETs",
 						"type": "text"
 					}
 				],
