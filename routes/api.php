@@ -17,10 +17,11 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
         Route::group(['prefix' => 'attendees'], function () {
             Route::post('register', 'AttendeeController@register');
             Route::post('login', 'AttendeeController@login');
-            Route::get('{id}/events', 'EventController@getPublicEventsByAttendee');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class,],
                 function () {
+                    Route::get('{id}/events', 'EventController@getPublicEventsByAttendee');
+                    Route::get('{id}/private_events', 'EventController@getPrivateEventsByAttendee');
                     Route::get('profile', 'AttendeeController@getCurrentInfo');
                     Route::put('profile/update', 'AttendeeController@updateInfo');
                 });
@@ -44,7 +45,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
 
         Route::group(['prefix' => 'locations'], function () {
             Route::get('', 'LocationController@listAll');
-            Route::get('{id}', 'EventController@getEventsByLocation');
+//            Route::get('{id}', 'EventController@getEventsByLocation');
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
@@ -65,8 +66,8 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
                     Route::put('update/{id}', 'EventController@updateEvent');
                     Route::delete('delete/{id}', 'EventController@deleteEvent');
                     Route::post('upload/{id}', 'EventController@uploadImage');
+                    Route::get('{id}', 'EventController@getInfo');
                 });
-            Route::get('{id}', 'EventController@getInfo');
         });
 
         //Route::group(['prefix' => 'voucher'], function () {
