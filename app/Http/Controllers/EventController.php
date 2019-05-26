@@ -189,9 +189,36 @@ class EventController extends Controller
                 'message'=> 'Event not found',
             ], 400);
 
+
         $owner = $found->owner;
         $attendees = $found->attendees;
 
+
+        if ($found->type == 'private') {
+            $token = JWTAuth::parseToken();
+            $user_id = $token->getPayload()->get('sub');
+            $user_type = $token->getPayload()->get('user_type');
+
+            if (!$user_id || $user_type != 'Attendee') {
+                return response()->json([
+                    'message' => 'invalid_token',
+                ], 422);
+            }
+
+            $found_user = false;
+            foreach ($attendees as $at) {
+                if ($at->id == $user_id) {
+                    $found_user = true;
+                    break;
+                }
+            }
+
+            if ($found_user == false)
+                return response()->json([
+                    'message'=> 'Permission denied',
+                ], 400);
+        }
+        
         $result = array('detail' => $found,
                 'contact' => $owner->email,
                 'nummber_of_attendees' => sizeof($attendees));
