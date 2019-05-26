@@ -218,7 +218,7 @@ class EventController extends Controller
                     'message'=> 'Permission denied',
                 ], 400);
         }
-        
+
         $result = array('detail' => $found,
                 'contact' => $owner->email,
                 'nummber_of_attendees' => sizeof($attendees));
@@ -233,7 +233,10 @@ class EventController extends Controller
                 'message'=> 'Owner not found',
             ], 400);
 
-        $list_evs = Event::where('owner_id', '=', $owner_id)->paginate();
+        $list_evs = Event::where('owner_id', '=', $owner_id)
+            ->where('type', '=', 'public')
+            ->paginate();
+
         return response()->json([
             'owner_id' => $owner_id,
             'result' => $list_evs,
