@@ -154,7 +154,7 @@ class EventController extends Controller
 
             $tmp['contact'] = $owner->email;
             $tmp['nummber_of_attendees'] = sizeof($attendees);
-            $tmp['location_name'] = $location->name;
+            $tmp['location_name'] = $location->name_location;
             $tmp['location_address'] = $location->address;
             array_push($list_evs, $tmp);
         }
