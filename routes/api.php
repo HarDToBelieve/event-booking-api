@@ -36,7 +36,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
                     Route::get('profile', 'OrganizerController@getCurrentInfo');
-                    Route::put('profile/update', 'OrganizerController@updateInfo');
+                    Route::put('profile', 'OrganizerController@updateInfo');
                     Route::get('{id}/locations', 'LocationController@getLocationsByOwner');
                 });
 
@@ -50,8 +50,8 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
                     Route::post('', 'LocationController@createLocation');
-                    Route::put('update/{id}', 'LocationController@updateLocation');
-                    Route::delete('delete/{id}', 'LocationController@deleteLocation');
+                    Route::put('{id}', 'LocationController@updateLocation');
+                    Route::delete('{id}', 'LocationController@deleteLocation');
                 });
 
             Route::get('{id}', 'LocationController@getInfo');
@@ -63,9 +63,9 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
                     Route::post('', 'EventController@createEvent');
-                    Route::put('update/{id}', 'EventController@updateEvent');
-                    Route::delete('delete/{id}', 'EventController@deleteEvent');
-                    Route::post('upload/{id}', 'EventController@uploadImage');
+                    Route::put('{id}', 'EventController@updateEvent');
+                    Route::delete('{id}', 'EventController@deleteEvent');
+                    Route::post('{id}/upload', 'EventController@uploadImage');
                     Route::get('{id}', 'EventController@getInfo');
                 });
         });
@@ -83,7 +83,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
                     Route::post('', 'ReservationController@handleEvent');
-                    Route::post('confirm/{id}', 'ReservationController@confirmEvent');
+                    Route::post('{id}/confirm', 'ReservationController@confirmEvent');
                 });
         });
     });
