@@ -21,7 +21,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class,],
                 function () {
                     Route::get('{id}/events', 'EventController@getPublicEventsByAttendee');
-                    Route::get('{id}/private_events', 'EventController@getPrivateEventsByAttendee');
+                    Route::get('private_events', 'EventController@getPrivateEventsByAttendee');
                     Route::get('profile', 'AttendeeController@getCurrentInfo');
                     Route::put('profile/update', 'AttendeeController@updateInfo');
                 });
