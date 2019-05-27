@@ -142,8 +142,24 @@ class EventController extends Controller
 
     public function listAll(Request $request)
     {
-        $list_evs = Event::where('type', '=', 'public')
+        $evs = Event::where('type', '=', 'public')
             ->paginate();
+        $list_evs = array();
+
+        foreach ($evs as $ev) {
+            $tmp = array('detail' => $ev);
+            $owner = $ev->owner;
+            $attendees = $ev->attendees;
+            $location = $ev->location;
+
+            $tmp['contact'] = $owner->email;
+            $tmp['nummber_of_attendees'] = sizeof($attendees);
+            $tmp['location_name'] = $location->name;
+            $tmp['location_address'] = $location->address;
+            array_push($list_evs, $tmp);
+        }
+
+
         return response()->json($list_evs, 200);
     }
 
