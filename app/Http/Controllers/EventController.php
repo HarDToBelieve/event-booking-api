@@ -159,8 +159,18 @@ class EventController extends Controller
         $reserves = $user->events;
         $list_evs = array();
         foreach ($reserves as $re) {
-            if ($re->type == 'public')
-                array_push($list_evs, $re);
+            if ($re->type == 'public') {
+                $tmp = array('detail' => $re);
+                $owner = $re->owner;
+                $attendees = $re->attendees;
+                $location = $re->location;
+
+                $tmp['contact'] = $owner->email;
+                $tmp['nummber_of_attendees'] = sizeof($attendees);
+                $tmp['location_name'] = $location->name;
+                $tmp['location_address'] = $location->address;
+                array_push($list_evs, $tmp);
+            }
         }
 
         return response()->json($list_evs, 200);
@@ -178,8 +188,18 @@ class EventController extends Controller
         $reserves = $user->events;
         $list_evs = array();
         foreach ($reserves as $re) {
-            if ($re->type == 'private')
-                array_push($list_evs, $re);
+            if ($re->type == 'private') {
+                $tmp = array('detail' => $re);
+                $owner = $re->owner;
+                $attendees = $re->attendees;
+                $location = $re->location;
+
+                $tmp['contact'] = $owner->email;
+                $tmp['nummber_of_attendees'] = sizeof($attendees);
+                $tmp['location_name'] = $location->name;
+                $tmp['location_address'] = $location->address;
+                array_push($list_evs, $tmp);
+            }
         }
 
         return response()->json($list_evs, 200);
@@ -196,7 +216,7 @@ class EventController extends Controller
 
         $owner = $found->owner;
         $attendees = $found->attendees;
-
+        $location = $found->location;
 
         if ($found->type == 'private') {
             $token = JWTAuth::parseToken();
@@ -225,7 +245,9 @@ class EventController extends Controller
 
         $result = array('detail' => $found,
                 'contact' => $owner->email,
-                'nummber_of_attendees' => sizeof($attendees));
+                'nummber_of_attendees' => sizeof($attendees),
+                'location_name' => $location->name,
+                'location_address' => $location->address);
         return response()->json(['result' => $result], 200);
     }
 
