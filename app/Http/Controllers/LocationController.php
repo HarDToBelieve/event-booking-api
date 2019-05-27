@@ -117,9 +117,12 @@ class LocationController extends Controller
             ], 400);
 
         $list_loc = Location::where('owner_id', '=', $owner_id)->paginate();
+
         return response()->json([
-            'owner_id' => $owner_id,
-            'result' => $list_loc,
+            'owner_id'=> $owner_id,
+            'current_page'=> $list_loc->currentPage(),
+            'next_page_url'=> $list_loc->nextPageUrl(),
+            'data'=> $list_loc
         ], 200);
     }
 }
