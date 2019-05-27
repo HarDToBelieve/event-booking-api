@@ -146,7 +146,7 @@ class EventController extends Controller
             ->paginate();
         $list_evs = array();
 
-        foreach ($evs as $ev) {
+        foreach ($evs->items() as $ev) {
             $tmp = array('detail' => $ev);
             $owner = $ev->owner;
             $attendees = $ev->attendees;
@@ -160,7 +160,11 @@ class EventController extends Controller
         }
 
 
-        return response()->json($list_evs, 200);
+        return response()->json([
+            'current_page'=> $evs->currentPage(),
+            'next_page_url'=> $evs->nextPageUrl(),
+            'data'=> $list_evs
+        ], 200);
     }
 
     public function getPublicEventsByAttendee(Request $request, $id)
@@ -176,7 +180,7 @@ class EventController extends Controller
         $list_evs = array();
         foreach ($reserves as $re) {
             if ($re->type == 'public') {
-                $tmp = array('detail' => $re);
+                $tmp = array('data' => $re);
                 $owner = $re->owner;
                 $attendees = $re->attendees;
                 $location = $re->location;
@@ -205,7 +209,7 @@ class EventController extends Controller
         $list_evs = array();
         foreach ($reserves as $re) {
             if ($re->type == 'private') {
-                $tmp = array('detail' => $re);
+                $tmp = array('data' => $re);
                 $owner = $re->owner;
                 $attendees = $re->attendees;
                 $location = $re->location;
@@ -280,8 +284,10 @@ class EventController extends Controller
             ->paginate();
 
         return response()->json([
-            'owner_id' => $owner_id,
-            'result' => $list_evs,
+            'owner_id'=> $owner_id,
+            'current_page'=> $list_evs->currentPage(),
+            'next_page_url'=> $list_evs->nextPageUrl(),
+            'data'=> $list_evs
         ], 200);
     }
 
