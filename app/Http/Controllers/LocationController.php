@@ -77,7 +77,12 @@ class LocationController extends Controller
             return response()->json([
                 'message'=> 'Location not found',
             ], 400);
+
         $location = $found->first();
+        $events = $location->events;
+        foreach ($events as $e)
+            $e->delete();
+
         $location->delete();
         return response()->json([
             'message'=> 'Location deleted successfully',

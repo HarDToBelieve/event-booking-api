@@ -97,7 +97,10 @@ class ReservationController extends Controller
             $filename = $request->file('csv_file')->getRealPath();
             $data = Excel::load($filename)->get();
             $result = array();
-
+            if (sizeof($data->all()) != $request->get('capacity'))
+                return response()->json([
+                    'message'=> 'Too many invitations',
+                ], 400);
             foreach ($data->all() as $value) {
                 $new_email = $value->first();
 

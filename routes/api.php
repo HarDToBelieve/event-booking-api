@@ -49,7 +49,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
-                    Route::post('create', 'LocationController@createLocation');
+                    Route::post('', 'LocationController@createLocation');
                     Route::put('update/{id}', 'LocationController@updateLocation');
                     Route::delete('delete/{id}', 'LocationController@deleteLocation');
                 });
@@ -62,7 +62,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
 
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
-                    Route::post('create', 'EventController@createEvent');
+                    Route::post('', 'EventController@createEvent');
                     Route::put('update/{id}', 'EventController@updateEvent');
                     Route::delete('delete/{id}', 'EventController@deleteEvent');
                     Route::post('upload/{id}', 'EventController@uploadImage');

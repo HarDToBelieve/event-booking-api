@@ -133,7 +133,16 @@ class AttendeeController extends Controller
 
     public function login(Request $request)
     {
-        $token = $this->getToken($request->only('email', 'password'));
+        $credentials = $request->only('email', 'password');
+        $token = null;
+        try {
+            if (!$token = JWTAuth::attempt($credentials)) {
+                return response()->json(['invalid_email_or_password'], 422);
+            }
+        } catch (JWTAuthException $e) {
+            return response()->json(['failed_to_create_token'], 500);
+        }
+        $token = auth()->claims(['user_type' => 'Attendee',])->attempt($credentials);
         return response()->json(compact('token'));
     }
 
