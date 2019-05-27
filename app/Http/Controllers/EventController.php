@@ -55,7 +55,10 @@ class EventController extends Controller
             'type' => $request->get('type'),
             'capacity' => $request->get('capacity')
         ]);
-        return response()->json(['result' => $event], 200);
+        return response()->json([
+            'message'=> 'Event created successfully',
+            'data' => $event,
+        ], 200);
     }
 
     public function updateEvent(Request $request, $id)

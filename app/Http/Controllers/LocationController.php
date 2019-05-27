@@ -31,7 +31,10 @@ class LocationController extends Controller
             'address' => $request->get('address'),
             'owner_id' => $id,
         ]);
-        return response()->json(['result' => $location], 200);
+        return response()->json([
+            'message'=> 'Location created successfully',
+            'data' => $location
+        ], 200);
     }
 
     public function updateLocation(Request $request, $id)
