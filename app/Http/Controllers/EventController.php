@@ -102,7 +102,14 @@ class EventController extends Controller
                 'message'=> 'Event Not belongs to owner',
             ], 400);
 
-        $event->update($request->all());
+        $dict = $request->all();
+        if (array_key_exists('start_date', $dict) !== false)
+            $dict['start_date'] = strtotime($dict['start_date']);
+
+        if (array_key_exists('end_date', $dict) !== false)
+            $dict['end_date'] = strtotime($dict['end_date']);
+
+        $event->update($dict);
         return response()->json([
             'message'=> 'Event updated successfully',
             'data'=>$event,
