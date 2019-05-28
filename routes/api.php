@@ -68,7 +68,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
                     Route::delete('{id}', 'EventController@deleteEvent');
                     Route::post('{id}/upload', 'EventController@uploadImage');
                     Route::get('{id}/reservations', 'EventController@getAttendeesByEvent');
-                    Route::delete('{id}/reservations', 'EventController@removeReservation');
+                    Route::delete('{id}/reservations', 'ReservationController@removeReservation');
                     Route::post('{id}/reservations', 'ReservationController@handleEvent');
                     Route::get('{id}', 'EventController@getInfo');
                 });
