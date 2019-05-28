@@ -174,6 +174,43 @@ class EventController extends Controller
         ], 200);
     }
 
+    public function getAttendeesByEvent(Request $request, $event_id)
+    {
+        $token = JWTAuth::parseToken();
+        $id = $token->getPayload()->get('sub');
+        $user_type = $token->getPayload()->get('user_type');
+
+        if (!$id) {
+            return response()->json([
+                'message' => 'invalid_token',
+            ], 422);
+        }
+
+        $event = Event::where('id', '=', $event_id)->first();
+        if ($event == null) {
+            return response()->json([
+                'message' => 'Event not found',
+            ], 404);
+        }
+
+        if ($user_type == 'Attendee') {
+            $found = false;
+            foreach ($event->attendees as $at) {
+                if ($at->id == $id) {
+                    $found = true;
+                    break;
+                }
+            }
+            if ($found == false) {
+                return response()->json([
+                    'message' => 'Permission denied',
+                ], 400);
+            }
+        }
+
+        return response()->json($event->attendees, 200);
+    }
+
     public function getPublicEventsByAttendee(Request $request, $id)
     {
         $user = Attendee::where('id', '=', $id)->first();
