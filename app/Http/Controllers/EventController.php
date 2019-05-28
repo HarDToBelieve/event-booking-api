@@ -266,24 +266,30 @@ class EventController extends Controller
             $user_id = $token->getPayload()->get('sub');
             $user_type = $token->getPayload()->get('user_type');
 
-            if (!$user_id || $user_type != 'Attendee') {
+            if (!$user_id) {
                 return response()->json([
                     'message' => 'invalid_token',
                 ], 422);
             }
 
-            $found_user = false;
-            foreach ($attendees as $at) {
-                if ($at->id == $user_id) {
-                    $found_user = true;
-                    break;
+            if ($user_type == 'Attendee') {
+                $found_user = false;
+                foreach ($attendees as $at) {
+                    if ($at->id == $user_id) {
+                        $found_user = true;
+                        break;
+                    }
                 }
-            }
 
-            if ($found_user == false)
+                if ($found_user == false)
+                    return response()->json([
+                        'message' => 'Permission denied',
+                    ], 400);
+            } elseif ($owner->id != $user_id) {
                 return response()->json([
-                    'message'=> 'Permission denied',
+                    'message' => 'Permission denied',
                 ], 400);
+            }
         }
 
         $result = array('detail' => $found,
