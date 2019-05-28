@@ -72,6 +72,11 @@ class ReservationController extends Controller
                 'message'=> 'Event not found',
             ], 400);
 
+        if ( time() > $event->end_date )
+            return response()->json([
+                'message' => 'Expired event',
+            ], 400);
+
         if ($user_id != $event->owner_id)
             return response()->json([
                 'message'=> 'Not belongs to owner',
