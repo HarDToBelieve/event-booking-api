@@ -142,11 +142,17 @@ class ReservationController extends Controller
         }
     }
 
-    public function handleEvent(Request $request)
+    public function handleEvent(Request $request, $event_id)
     {
-        if ($request->get('type') == 'public')
+        $event = Event::where('id', '=', $event_id)->first();
+        if ($event == null)
+            return response()->json([
+                'message'=> 'Event not found'
+            ], 404);
+
+        if ($event->type == 'public')
             return $this->reservePublicEvent($request);
-        elseif ($request->get('type') == 'private')
+        else
             return $this->reservePrivateEvent($request);
 
     }
