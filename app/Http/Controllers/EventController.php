@@ -314,7 +314,7 @@ class EventController extends Controller
         }
 
         $owner = Organizer::where('id', '=', $user_id)->first();
-        return response()->json($owner->events, 200);
+        return response()->json(array('detail' => $owner->events), 200);
     }
 
     public function getInfo(Request $request, $id)
