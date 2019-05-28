@@ -216,6 +216,7 @@ class EventController extends Controller
                 ->where('event_id', '=', $event->id)->first();
             $tmp['user'] = $at;
             $tmp['status'] = $re->status;
+            $tmp['user_id'] = $at->id;
             array_push($tmp);
         }
 
