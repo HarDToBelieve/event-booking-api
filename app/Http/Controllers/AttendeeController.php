@@ -38,6 +38,7 @@ class AttendeeController extends Controller
             $user = $found->first();
             $tmp_dict = $request->all();
             $tmp_dict['email'] = $user->email;
+            $orig_pass = $tmp_dict['password'];
             $tmp_dict['password'] = Hash::make($tmp_dict['password']);
 
             $user->update($tmp_dict);
@@ -47,7 +48,7 @@ class AttendeeController extends Controller
 
             $cred = array(
                 'email'=> $user->email,
-                'password'=> $tmp_dict['password']
+                'password'=> $orig_pass
             );
             $token = $this->getToken($cred);
 
