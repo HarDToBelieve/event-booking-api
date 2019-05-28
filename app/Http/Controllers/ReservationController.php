@@ -210,9 +210,8 @@ class ReservationController extends Controller
         $existing_slots = Reservation::where('event_id', '=', $event_id)
                         ->where('status', '=', 'INVITED')
                         ->get();
-        $location = Location::where('id', '=', $event->location_id)->first();
 
-        if (count($existing_slots) == $location->capacity)
+        if (count($existing_slots) == $event->capacity)
             return response()->json([
                 'message' => 'Full slot',
             ], 400);
