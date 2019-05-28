@@ -227,7 +227,7 @@ class ReservationController extends Controller
             ], 404);
         }
 
-        if ($user_type == 'Attendee') {
+        if ($user_type == 'Attendee' && $event->type == 'private') {
             $found = false;
             foreach ($event->attendees as $at) {
                 if ($at->id == $id) {
