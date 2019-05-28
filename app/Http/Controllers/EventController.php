@@ -395,7 +395,7 @@ class EventController extends Controller
 
                 $rq->file('image')->move($uploadPath, $fileName);
                 $event->update([
-                    'img' => $uploadPath
+                    'img' => $uploadPath . '/' . $fileName
                 ]);
                 return response()->json([
                     'message'=> 'Image uploaded',
