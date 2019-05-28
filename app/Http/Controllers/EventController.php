@@ -253,7 +253,7 @@ class EventController extends Controller
 
                 $tmp['contact'] = $owner->email;
                 $tmp['nummber_of_attendees'] = sizeof($attendees);
-                $tmp['location_name'] = $location->name;
+                $tmp['location_name'] = $location->name_location;
                 $tmp['location_address'] = $location->address;
                 array_push($list_evs, $tmp);
             }
@@ -292,7 +292,7 @@ class EventController extends Controller
 
                 $tmp['contact'] = $owner->email;
                 $tmp['nummber_of_attendees'] = sizeof($attendees);
-                $tmp['location_name'] = $location->name;
+                $tmp['location_name'] = $location->name_location;
                 $tmp['location_address'] = $location->address;
                 array_push($list_evs, $tmp);
             }
@@ -364,7 +364,7 @@ class EventController extends Controller
         $result = array('detail' => $found,
                 'contact' => $owner->email,
                 'nummber_of_attendees' => sizeof($attendees),
-                'location_name' => $location->name,
+                'location_name' => $location->name_location,
                 'location_address' => $location->address);
         return response()->json(['result' => $result], 200);
     }
@@ -378,14 +378,25 @@ class EventController extends Controller
             ], 400);
 
         $list_evs = Event::where('owner_id', '=', $owner_id)
-            ->where('type', '=', 'public')
-            ->paginate();
+            ->where('type', '=', 'public');
+
+        $result = array();
+        foreach ($list_evs as $ev) {
+            $tmp = array('detail' => $ev);
+            $attendees = $ev->attendees;
+            $location = $ev->location;
+
+            $tmp['contact'] = $owner->email;
+            $tmp['nummber_of_attendees'] = sizeof($attendees);
+            $tmp['location_name'] = $location->name_location;
+            $tmp['location_address'] = $location->address;
+
+            array_push($result, $tmp);
+        }
 
         return response()->json([
             'owner_id'=> $owner_id,
-            'current_page'=> $list_evs->currentPage(),
-            'next_page_url'=> $list_evs->nextPageUrl(),
-            'data'=> $list_evs
+            'data'=> $result
         ], 200);
     }
 
