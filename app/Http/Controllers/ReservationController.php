@@ -15,7 +15,7 @@ use App\Jobs\SendEmailJob;
 
 class ReservationController extends Controller
 {
-    public function reservePublicEvent(Request $request)
+    public function reservePublicEvent(Request $request, $event_id)
     {
         $token = JWTAuth::parseToken();
         $id = $token->getPayload()->get('sub');
@@ -27,7 +27,7 @@ class ReservationController extends Controller
             ], 400);
         }
 
-        $event = Event::where('id', '=', $request->get('event_id'))->first();
+        $event = Event::where('id', '=', $event_id)->first();
         if ($event == null)
             return response()->json([
                 'message' => 'Event not found',
@@ -54,7 +54,7 @@ class ReservationController extends Controller
         return response()->json(['result' => $reservation], 200);
     }
 
-    public function reservePrivateEvent(Request $request)
+    public function reservePrivateEvent(Request $request, $event_id)
     {
         $token = JWTAuth::parseToken();
         $user_id = $token->getPayload()->get('sub');
@@ -66,7 +66,7 @@ class ReservationController extends Controller
             ], 400);
         }
 
-        $event = Event::where('id', '=', $request->get('event_id'))->first();
+        $event = Event::where('id', '=', $event_id)->first();
         if ($event == null)
             return response()->json([
                 'message'=> 'Event not found',
@@ -151,9 +151,9 @@ class ReservationController extends Controller
             ], 404);
 
         if ($event->type == 'public')
-            return $this->reservePublicEvent($request);
+            return $this->reservePublicEvent($request, $event_id);
         else
-            return $this->reservePrivateEvent($request);
+            return $this->reservePrivateEvent($request, $event_id);
 
     }
 

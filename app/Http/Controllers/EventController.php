@@ -217,7 +217,7 @@ class EventController extends Controller
             $tmp['user'] = $at;
             $tmp['status'] = $re->status;
             $tmp['user_id'] = $at->id;
-            array_push($tmp);
+            array_push($result, $tmp);
         }
 
         return response()->json($result, 200);
