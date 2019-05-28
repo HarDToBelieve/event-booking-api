@@ -44,6 +44,6 @@ class Organizer extends Model implements JWTSubject, AuthenticatableContract
 
     public function events()
     {
-        return $this->hasMany('App\Event');
+        return $this->hasMany('App\Event', 'owner_id', 'id');
     }
 }

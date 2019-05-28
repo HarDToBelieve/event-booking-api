@@ -63,6 +63,7 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
                     Route::post('', 'EventController@createEvent');
+                    Route::get('organizer_events', 'EventController@getEventsByOrganizer');
                     Route::put('{id}', 'EventController@updateEvent');
                     Route::delete('{id}', 'EventController@deleteEvent');
                     Route::post('{id}/upload', 'EventController@uploadImage');

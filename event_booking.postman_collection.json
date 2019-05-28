@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "802797ed-33a5-4255-ab48-c976052424ba",
+		"_postman_id": "de27395d-59e6-45fb-9d40-c53546d6a162",
 		"name": "event_booking",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1054,6 +1054,37 @@
 							"key": "XDEBUG_SESSION_START",
 							"value": "16103"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all events by organizer",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjg4ODgvZXZlbnQtYm9va2luZy1hcGkvYXBpL29yZ2FuaXplcnMvbG9naW4iLCJpYXQiOjE1NTkwMDk3OTIsImV4cCI6MTU2MjYwOTc5MiwibmJmIjoxNTU5MDA5NzkyLCJqdGkiOiJBSGpYOXd2SHNuZ1dSam14Iiwic3ViIjoxLCJwcnYiOiI1YTQwMDc3NzBkMzRkMDQ1YWY1ODU5ZDBkYzhlYjQ0MDRjM2I1OTgwIiwidXNlcl90eXBlIjoiT3JnYW5pemVyIn0.aMSvueiCI7LKYR4KdsUcQDe94ifYgj46SVqyQhYILdI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8888/event-booking-api/api/events/organizer_events",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8888",
+					"path": [
+						"event-booking-api",
+						"api",
+						"events",
+						"organizer_events"
 					]
 				}
 			},

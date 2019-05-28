@@ -232,6 +232,22 @@ class EventController extends Controller
         return response()->json($list_evs, 200);
     }
 
+    public function getEventsByOrganizer(Request $request)
+    {
+        $token = JWTAuth::parseToken();
+        $user_id = $token->getPayload()->get('sub');
+        $user_type = $token->getPayload()->get('user_type');
+
+        if (!$user_id || $user_type != 'Organizer') {
+            return response()->json([
+                'message' => 'invalid_token',
+            ], 400);
+        }
+
+        $owner = Organizer::where('id', '=', $user_id)->first();
+        return response()->json($owner->events, 200);
+    }
+
     public function getInfo(Request $request, $id)
     {
         $found = Event::where('id', '=', $id)->first();
