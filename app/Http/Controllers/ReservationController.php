@@ -199,7 +199,7 @@ class ReservationController extends Controller
             ], 400);
 
         $reservation = Reservation::where('event_id', '=', $event_id)
-                    ->where('attend_id', '=', $id)
+                    ->where('attendee_id', '=', $id)
                     ->where('status', '=', 'PENDING')
                     ->first();
         if ($reservation == null)
