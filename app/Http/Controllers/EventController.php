@@ -314,7 +314,22 @@ class EventController extends Controller
         }
 
         $owner = Organizer::where('id', '=', $user_id)->first();
-        return response()->json(array('detail' => $owner->events), 200);
+
+        $result = array();
+        foreach ($owner->events as $ev) {
+            $tmp = array('detail' => $ev);
+            $attendees = $ev->attendees;
+            $location = $ev->location;
+
+            $tmp['contact'] = $owner->email;
+            $tmp['nummber_of_attendees'] = sizeof($attendees);
+            $tmp['location_name'] = $location->name_location;
+            $tmp['location_address'] = $location->address;
+
+            array_push($result, $tmp);
+        }
+
+        return response()->json($result, 200);
     }
 
     public function getInfo(Request $request, $id)
