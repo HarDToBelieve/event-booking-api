@@ -18,7 +18,7 @@ class Attendee extends Model implements JWTSubject, AuthenticatableContract
     protected $fillable = ['firstname', 'lastname', 'email', 'phone', 'password', 'signup_code'];
 //    protected $guard = 'api_attendee';
     protected $hidden = [
-        'password', 'signup_code', 'events'
+        'password', 'signup_code', 'events', 'pivot'
     ];
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
