@@ -106,11 +106,19 @@ class ReservationController extends Controller
 
                 $existing_user = Attendee::where('email', '=', $new_email)->first();
                 if ($existing_user != null) {
-                    $reservation = Reservation::create([
-                        'status' => 'PENDING',
-                        'event_id' => $event->id,
-                        'attendee_id' => $existing_user->id,
-                    ]);
+                    $existing_re = Reservation::where('event_id', '=', $event->id)
+                        ->where('attendee_id', '=', $existing_user->id)
+                        ->first();
+
+                    if ($existing_re == null) {
+                        $reservation = Reservation::create([
+                            'status' => 'PENDING',
+                            'event_id' => $event->id,
+                            'attendee_id' => $existing_user->id,
+                        ]);
+                    } else {
+                        $reservation = $existing_re;
+                    }
                 }
                 else {
                     $rand_str = Str::random(32);
