@@ -378,7 +378,7 @@ class EventController extends Controller
             ], 400);
 
         $list_evs = Event::where('owner_id', '=', $owner_id)
-            ->where('type', '=', 'public');
+            ->where('type', '=', 'public')->all();
 
         $result = array();
         foreach ($list_evs as $ev) {
