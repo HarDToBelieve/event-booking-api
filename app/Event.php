@@ -11,7 +11,7 @@ class Event extends Model
     protected $fillable = ['title', 'description', 'category', 'start_date',
         'end_date', 'location_id', 'owner_id', 'img', 'type', 'capacity'];
 
-    protected $hidden = ['owner', 'attendees'];
+    protected $hidden = ['owner', 'attendees', 'pivot'];
 
     public function attendees()
     {
