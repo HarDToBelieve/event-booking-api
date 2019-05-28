@@ -68,6 +68,8 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
                     Route::delete('{id}', 'EventController@deleteEvent');
                     Route::post('{id}/upload', 'EventController@uploadImage');
                     Route::get('{id}/reservations', 'EventController@getAttendeesByEvent');
+                    Route::delete('{id}/reservations', 'EventController@removeReservation');
+                    Route::post('{id}/reservations', 'ReservationController@handleEvent');
                     Route::get('{id}', 'EventController@getInfo');
                 });
         });
@@ -84,7 +86,6 @@ Route::group(['middleware' => \App\Http\Middleware\Cors::class, ],
         Route::group(['prefix' => 'reservations'], function () {
             Route::group(['middleware' => \App\Http\Middleware\VerifyJWTToken::class],
                 function () {
-                    Route::post('', 'ReservationController@handleEvent');
                     Route::post('{id}/confirm', 'ReservationController@confirmEvent');
                 });
         });

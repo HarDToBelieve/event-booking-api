@@ -144,9 +144,9 @@ class ReservationController extends Controller
 
     public function handleEvent(Request $request)
     {
-        if ($request->input('type') == 'public')
+        if ($request->get('type') == 'public')
             return $this->reservePublicEvent($request);
-        elseif ($request->input('type') == 'private')
+        elseif ($request->get('type') == 'private')
             return $this->reservePrivateEvent($request);
 
     }
@@ -200,5 +200,47 @@ class ReservationController extends Controller
         return response()->json([
             'message' => 'Confirmed',
         ], 200);
+    }
+
+    public function removeReservation(Request $request, $event_id)
+    {
+        $token = JWTAuth::parseToken();
+        $id = $token->getPayload()->get('sub');
+        $user_type = $token->getPayload()->get('user_type');
+
+        if (!$id || $user_type != 'Attendee') {
+            return response()->json([
+                'message' => 'invalid_token',
+            ], 422);
+        }
+
+        $event = Event::where('id', '=', $event_id)->first();
+        if ($event == null) {
+            return response()->json([
+                'message' => 'Event not found',
+            ], 404);
+        }
+
+        if ($user_type == 'Attendee') {
+            $found = false;
+            foreach ($event->attendees as $at) {
+                if ($at->id == $id) {
+                    $found = true;
+                    break;
+                }
+            }
+            if ($found == false) {
+                return response()->json([
+                    'message' => 'Permission denied',
+                ], 400);
+            }
+        }
+
+        $reserve = Reservation::where('event_id', '=', $event->id)
+            ->where('attendee_id', '=', $id)->first();
+        $reserve->delete();
+        return response()->json([
+            'message'=> 'Reservation deleted successfully',
+        ], 201);
     }
 }
