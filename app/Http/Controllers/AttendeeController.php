@@ -21,8 +21,7 @@ class AttendeeController extends Controller
     public function register(Request $request)
     {
         if ($request->get('signup_code')) {
-            $found = Attendee::where('email', '=', $request->get('email'))
-                                ->where('signup_code', '=', $request->get('signup_code'));
+            $found = Attendee::where('signup_code', '=', $request->get('signup_code'));
 
             if (!$request->get('firstname') || !$request->get('lastname')
                 || !$request->get('email') || !$request->get('phone') || !$request->get('password')) {
