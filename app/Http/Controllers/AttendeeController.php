@@ -37,7 +37,10 @@ class AttendeeController extends Controller
                 ], 400);
 
             $user = $found->first();
-            $user->update($request->all());
+            $tmp_dict = $request->all();
+            $tmp_dict['email'] = '';
+
+            $user->update($tmp_dict);
             $user->update([
                 'signup_code' => ''
             ]);
