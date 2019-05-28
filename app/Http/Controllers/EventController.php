@@ -246,7 +246,7 @@ class EventController extends Controller
         $list_evs = array();
         foreach ($reserves as $re) {
             if ($re->type == 'public') {
-                $tmp = array('data' => $re);
+                $tmp = array('detail' => $re);
                 $owner = $re->owner;
                 $attendees = $re->attendees;
                 $location = $re->location;
@@ -285,7 +285,7 @@ class EventController extends Controller
         $list_evs = array();
         foreach ($reserves as $re) {
             if ($re->type == 'private') {
-                $tmp = array('data' => $re);
+                $tmp = array('detail' => $re);
                 $owner = $re->owner;
                 $attendees = $re->attendees;
                 $location = $re->location;
