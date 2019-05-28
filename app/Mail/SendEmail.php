@@ -17,10 +17,11 @@ class SendEmail extends Mailable
      *
      * @return void
      */
-    public function __construct($signup_code)
+    public function __construct($signup_code, $mail)
     {
         $this->signup_code = $signup_code;
         $this->url_mail = env('URL_MAIL');
+        $this->mail = $mail;
     }
 
     /**
@@ -36,6 +37,6 @@ class SendEmail extends Mailable
         ];
 
         return $this->view('emails.invitation')->with('signup_code', $this->signup_code)
-            ->with('url_mail', $this->url_mail);
+            ->with('url_mail', $this->url_mail)->with('mail', $this->mail);
     }
 }

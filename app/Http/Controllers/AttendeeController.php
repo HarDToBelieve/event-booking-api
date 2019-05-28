@@ -44,7 +44,10 @@ class AttendeeController extends Controller
                 'signup_code' => ''
             ]);
 
-            $cred = $request->only('email', 'password');
+            $cred = array(
+                'email'=> $user->email,
+                'password'=> $tmp_dict['password']
+            );
             $token = $this->getToken($cred);
 
             return response()->json([
