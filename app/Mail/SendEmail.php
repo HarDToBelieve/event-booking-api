@@ -35,6 +35,7 @@ class SendEmail extends Mailable
             'url_mail', $this->url_mail
         ];
 
-        return $this->view('emails.invitation')->with($data);
+        return $this->view('emails.invitation')->with('signup_code', $this->signup_code)
+            ->with('url_mail', $this->url_mail);
     }
 }
