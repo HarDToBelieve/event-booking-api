@@ -6,6 +6,7 @@ use App\Attendee;
 use App\Event;
 use App\Location;
 use App\Organizer;
+use App\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -208,7 +209,17 @@ class EventController extends Controller
             }
         }
 
-        return response()->json($event->attendees, 200);
+        $result = array();
+        foreach ($event->attendees as $at) {
+            $tmp = array();
+            $re = Reservation::where('attendee_id', '=', $at->id)
+                ->where('event_id', '=', $event->id)->first();
+            $tmp['user'] = $at;
+            $tmp['status'] = $re->status;
+            array_push($tmp);
+        }
+
+        return response()->json($result, 200);
     }
 
     public function getPublicEventsByAttendee(Request $request, $id)
