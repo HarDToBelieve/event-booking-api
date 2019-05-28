@@ -225,12 +225,22 @@ class EventController extends Controller
 
     public function getPublicEventsByAttendee(Request $request, $id)
     {
-        $user = Attendee::where('id', '=', $id)->first();
-        if ($user == null) {
+        $token = JWTAuth::parseToken();
+        $user_id = $token->getPayload()->get('sub');
+        $user_type = $token->getPayload()->get('user_type');
+
+        if (!$id) {
             return response()->json([
-                'message' => 'User not found',
-            ], 404);
+                'message' => 'invalid_token',
+            ], 422);
         }
+
+        if (!$user_id || $user_type != 'Attendee' || $user_id != $id)
+            return response()->json([
+                'message' => 'invalid_token',
+            ], 422);
+
+        $user = Attendee::where('id', '=', $id)->first();
 
         $reserves = $user->events;
         $list_evs = array();
@@ -254,12 +264,22 @@ class EventController extends Controller
 
     public function getPrivateEventsByAttendee(Request $request, $id)
     {
-        $user = Attendee::where('id', '=', $id)->first();
-        if ($user == null) {
+        $token = JWTAuth::parseToken();
+        $user_id = $token->getPayload()->get('sub');
+        $user_type = $token->getPayload()->get('user_type');
+
+        if (!$id) {
             return response()->json([
-                'message' => 'User not found',
-            ], 404);
+                'message' => 'invalid_token',
+            ], 422);
         }
+
+        if (!$user_id || $user_type != 'Attendee' || $user_id != $id)
+            return response()->json([
+                'message' => 'invalid_token',
+            ], 422);
+
+        $user = Attendee::where('id', '=', $id)->first();
 
         $reserves = $user->events;
         $list_evs = array();
