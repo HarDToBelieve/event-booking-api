@@ -37,7 +37,7 @@ class AttendeeController extends Controller
 
             $user = $found->first();
             $tmp_dict = $request->all();
-            $tmp_dict['email'] = '';
+            $tmp_dict['email'] = $user->email;
 
             $user->update($tmp_dict);
             $user->update([
